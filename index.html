@@ -15,12 +15,19 @@
         </div>
     </header>
 
-    <div class="cds-container container">
+    <select name="genres" id="gen-sel">
+        <option value="">Choose an option</option>
+        <option value="Rock">Rock</option>
+        <option value="Pop">Pop</option>
+        <option value="Jazz">Jazz</option>
+        <option value="Metal">Metal</option>
+    </select>
 
-    </div>
+    <div class="cds-container container"></div>
+
 
     <script id="disk-template" type="text/x-handlebars-template">
-        <div class="cd">
+        <div class="cd" data-genre={{genre}}>
                 <img src={{poster}} alt="disk">
                 <h3>{{title}}</h3>
                 <span class="author">{{author}}</span>

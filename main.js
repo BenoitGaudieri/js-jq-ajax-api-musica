@@ -11,13 +11,17 @@ $(document).ready(function () {
     // Init handlebars
     var source = $("#disk-template").html();
     var template = Handlebars.compile(source);
+    var list = {};
     var moustache = {};
+    var allCd = "";
 
     $.ajax({
         url: apiUrl,
         method: "GET",
         success: function (data) {
             data = data.response;
+            // list = data;
+            // console.log(list); //list ok
 
             for (let i = 0; i < data.length; i++) {
                 for (const key in data[i]) {
@@ -44,6 +48,7 @@ $(document).ready(function () {
                         // handlebars output
                         var html = template(moustache);
                         $(".cds-container").append(html);
+                        allCd = $(".cd");
                     }
                 }
             }
@@ -51,6 +56,35 @@ $(document).ready(function () {
         error: function () {
             console.log("error");
         },
+    });
+
+    var selector = $("#gen-sel");
+
+    selector.on("change", function () {
+        var selected = $("#gen-sel option:selected");
+        console.log(selected.text());
+
+        // allCd.addClass("hidden");
+        // for (let i = 0; i < allCd.length; i++) {
+        //     var thisCd = allCd[i];
+        //     console.log(thisCd);
+
+        //     // if (thisCd.attr("data-genre") == selected.text()) {
+        //     //     allCd[i].toggle();
+        //     // }
+        // }
+        $(".cd").each(function () {
+            var dataGenre = $(this).attr("data-genre");
+
+            // verifica
+            if (selected.text() === "Choose an option") {
+                $(this).show();
+            } else if (dataGenre === selected.text()) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
     });
 
     //
